@@ -195,25 +195,6 @@ window.dash = (() => {
     </section>
   </div>
 
-  <section class="ud-card" id="jugadoras">
-    <h2>Jugadoras</h2>
-    <p class="ud-note">Promedios por partido jugado. TS% = tiro verdadero; Uso = % de posesiones que termina cada jugadora con tiro, tiro libre o pérdida estando en cancha; +/- 40 = diferencia del marcador por cada 40 minutos en cancha. Toca un encabezado para ordenar.</p>
-    <div class="ud-scroll">
-      <table id="t-jug" data-source="jugadoras" data-row-key="dorsal">
-        <thead><tr>
-          <th data-field="dorsal"><button>#</button></th><th data-field="jugadora" class="l"><button>Jugadora</button></th>
-          <th data-field="pj"><button>PJ</button></th><th data-field="titular"><button>Tit.</button></th><th data-field="min"><button>Min</button></th>
-          <th data-field="pts"><button>Pts</button></th><th data-field="reb"><button>Reb</button></th><th data-field="ast"><button>Ast</button></th>
-          <th data-field="rob"><button>Rob</button></th><th data-field="per"><button>Pérd</button></th><th data-field="tc_pct"><button>TC%</button></th>
-          <th data-field="t3"><button>Triples</button></th><th data-field="t3_pct"><button>3P%</button></th><th data-field="tl_pct"><button>TL%</button></th>
-          <th data-field="ts"><button>TS%</button></th><th data-field="uso"><button>Uso%</button></th><th data-field="mas_menos"><button>+/-</button></th>
-          <th data-field="mas_menos_40"><button>+/- 40</button></th><th data-field="valoracion"><button>Val.</button></th>
-        </tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
-
 </div>
   <div class="ud" id="pg-perdidas" hidden>
     <header>
@@ -1013,6 +994,7 @@ window.UDTeam = (p) => {
   function drawJug() {
     document.querySelectorAll('#t-jug th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === sortKey ? (sortDir > 0 ? 'ascending' : 'descending') : 'none'));
     const tb = document.querySelector('#t-jug tbody');
+    if (!tb) return;
     tb.replaceChildren();
     const key = sortKey === 't3' ? 't3_pct' : sortKey;
     const rows = rowsOf('jugadoras').slice().sort((a, b) => {
